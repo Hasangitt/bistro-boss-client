@@ -4,7 +4,7 @@ const ChefRecoCard = ({ item }) => {
   const { name, image, recipe } = item;
   return (
     <div>
-      <div className="card bg-base-100 w-96 shadow-xl">
+      <div className="card bg-base-100 w-80 mx-auto mb-5 md:mb-0 md:w-96 shadow-xl">
         <figure>
           <img
             src={image}

@@ -20,7 +20,7 @@ const ChefRecommend = () => {
         subHeading='Should Try'
         heading='CHEF RECOMMENDS'
         ></SectionTitle>
-      <div className="md:flex justify-evenly mb-20">
+      <div className="md:flex gap-5 justify-center mb-20">
         {menu.map((item) => (
           <ChefRecoCard key={item._id} item={item}></ChefRecoCard>
         ))}
