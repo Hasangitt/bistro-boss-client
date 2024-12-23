@@ -1,6 +1,7 @@
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 import MenuItem from "../../Shared/MenuItem/MenuItem";
 import useMenu from "../../../hooks/useMenu/useMenu";
+import { Link } from "react-router-dom";
 
 const PopulerMenu = () => {
   const [menu] = useMenu();
@@ -18,8 +19,13 @@ const PopulerMenu = () => {
         ))}
       </div>
       <div className="text-center mb-20">
-        <button className="btn bg-gray-200 border-b-4 border-b-yellow-400">View Full  Menu</button>
-        </div>
+        <Link to="/order/salad">
+          {" "}
+          <button className="btn bg-gray-200 border-b-4 border-b-yellow-400">
+            Order Food
+          </button>
+        </Link>
+      </div>
     </section>
   );
 };

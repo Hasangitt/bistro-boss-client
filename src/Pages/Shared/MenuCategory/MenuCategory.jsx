@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import MenuItem from "../MenuItem/MenuItem";
+import { Link } from "react-router-dom";
 
-const MenuCategory = ({ items, button }) => {
+const MenuCategory = ({ items, title }) => {
   return (
     <div>
       <div className="grid md:grid-cols-2 gap-6 mb-24 mx-4 md:mx-4 lg:mx-0">
@@ -10,9 +11,11 @@ const MenuCategory = ({ items, button }) => {
         ))}
       </div>
       <div className="text-center mb-20">
-        <button className="btn bg-gray-200 border-b-4 border-b-yellow-400">
-          {button}
-        </button>
+        <Link to={`/order/${title}`}>
+          <button className="btn bg-gray-200 border-b-4 border-b-yellow-400">
+            Order Your Favourite Food
+          </button>
+        </Link>
       </div>
     </div>
   );
@@ -23,4 +26,5 @@ export default MenuCategory;
 MenuCategory.propTypes = {
   items: PropTypes.node,
   button: PropTypes.node,
+  title: PropTypes.node
 };

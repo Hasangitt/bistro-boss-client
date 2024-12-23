@@ -1,6 +1,7 @@
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 import featureBg from "../../../assets/home/featured.jpg";
 import "./Featured.css";
+import { Link } from "react-router-dom";
 
 const Featured = () => {
   return (
@@ -22,7 +23,7 @@ const Featured = () => {
               Eaque repellat recusandae ad laudantium tempore consequatur
               consequuntur omnis ullam maxime tenetur.
             </p>
-            <button className="btn btn-outline text-white border-0 border-b-4">Read More</button>
+           <Link to="/order/salad"> <button className="btn btn-outline text-white border-0 border-b-4">Order Food</button></Link>
           </div>
         </div>
       </div>
