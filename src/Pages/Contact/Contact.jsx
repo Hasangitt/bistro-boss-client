@@ -1,4 +1,6 @@
+
 import Banner from "./ContactBanner/Banner";
+import Form from "./Form/Form";
 import Location from "./Location/Location";
 
 const Contact = () => {
@@ -6,6 +8,7 @@ const Contact = () => {
         <div>
             <Banner></Banner>
             <Location></Location>
+            <Form></Form>
         </div>
     );
 };
