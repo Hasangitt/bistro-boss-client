@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import image from "../../assets/others/authentication2.png";
 import {
   loadCaptchaEnginge,
@@ -7,21 +7,28 @@ import {
 } from "react-simple-captcha";
 import { useContext } from "react";
 import { AuthContext } from "../Auth/Providers/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 
 const Login = () => {
   const [disabled, setDisable] = useState(true);
-  const captchaRef = useRef(null);
   const { loginUser } = useContext(AuthContext);
+  const location = useLocation()
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+  
 
-  const userValidCaptcha = () => {
-    const user_captcha_value = captchaRef.current.value;
+  const userValidCaptcha = (e) => {
+    const user_captcha_value = e.target.value;
     if (validateCaptcha(user_captcha_value)) {
       setDisable(false);
     } else {
       alert("Captcha Does Not Match");
+      setDisable(true)
     }
   };
+
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -35,8 +42,14 @@ const Login = () => {
     console.log(email, password);
     loginUser(email, password)
       .then((result) => {
+        Swal.fire({
+          title: "Login Successfully!",
+          icon: "success",
+          draggable: true
+        });
         console.log(result.user);
-        alert('user login successfully')
+        navigate(from, { replace: true });
+        form.reset()
       })
       .catch((error) => {
         console.log(error);
@@ -92,19 +105,19 @@ const Login = () => {
                   <LoadCanvasTemplate />
                 </label>
                 <input
+                 onBlur={userValidCaptcha}
                   type="text"
                   name="captcha"
                   placeholder="type the captcha above"
                   className="input input-bordered"
                   required
-                  ref={captchaRef}
                 />
-                <button
+                {/* <button
                   onClick={userValidCaptcha}
                   className="btn btn-outline mt-2"
                 >
                   Valid Captcha
-                </button>
+                </button> */}
               </div>
               <div className="mt-5">
                 <p className="text-yellow-600 text-center font-semibold">

@@ -11,7 +11,7 @@ const Offer = () => {
       subHeading={'Do not miss'}
       heading={'TODAY iS OFFER'}
       ></SectionTitle>
-      <MenuCategory items={offered} ></MenuCategory>
+      <MenuCategory items={offered} title='salad'></MenuCategory>
     </div>
   );
 };

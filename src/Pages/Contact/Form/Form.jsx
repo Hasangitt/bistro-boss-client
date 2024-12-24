@@ -1,4 +1,5 @@
 
+import { Link } from "react-router-dom";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 import { GrSend } from "react-icons/gr";
 
@@ -45,8 +46,8 @@ const Form = () => {
           className="textarea textarea-bordered textarea-lg w-full"
         ></textarea>
         <div className="flex mx-auto justify-center items-center gap-2 text-white px-8 font-semibold rounded-md text-center bg-gradient-to-r from-yellow-500 to-yellow-800 w-[200px] p-2">
-          <input type="submit" value="Send Message" className="cursor-pointer bg-transparent border-none" />
-          <GrSend />
+          <Link className="flex items-center gap-2"><input type="submit" value="Send Message" className="cursor-pointer bg-transparent border-none" />
+          <GrSend /></Link>
         </div>
       </form>
     </div>

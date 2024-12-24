@@ -1,6 +1,35 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Auth/Providers/AuthContext";
+import auth from "../../Auth/firebase.config";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logOutUser } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "User LogOut!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOutUser(auth).then((result) => {
+          console.log(result.user);
+        });
+        Swal.fire({
+          title: "Logout Successfully!",
+          text: "User has been logout successfully.",
+          icon: "success",
+        }).catch((error) => [console.log(error)]);
+      }
+    });
+  };
+
   const navOptions = (
     <>
       <li>
@@ -14,12 +43,6 @@ const Navbar = () => {
       </li>
       <li>
         <Link to="/contact">Contact Us</Link>
-      </li>
-      <li>
-        <Link to="/login">Login</Link>
-      </li>
-      <li>
-        <Link to="/signUp">Sign Up</Link>
       </li>
     </>
   );
@@ -56,9 +79,28 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navOptions}</ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Button</a>
-      </div>
+      {user ? (
+        <>
+         <div className="navbar-end flex items-center gap-4">
+         <div className="avatar">
+            <div className="ring-green-500 hover:ring-red-500 ring-offset-base-100 w-12 rounded-full ring ring-offset-2">
+              <img src={user.photoURL ? user.photoURL : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiHV8bVGK7AWg4G9gExTuR-CChkUU0G1abOg&s'}/>
+            </div>
+          </div>
+          <div>
+            <button onClick={handleLogOut} className="btn btn-outline text-white">
+              Logout
+            </button>
+          </div>
+         </div>
+        </>
+      ) : (
+        <div className="navbar-end">
+          <button className="btn btn-outline text-white">
+            <Link to="/login">Login</Link>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

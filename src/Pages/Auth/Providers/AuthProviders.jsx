@@ -20,10 +20,11 @@ const loginUser = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
 }
 
-const logOutUser = () => {
+const logOutUser = (auth) => {
     setLoading(true)
-    return signOut()
+    return signOut(auth)
 }
+
 
 useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {

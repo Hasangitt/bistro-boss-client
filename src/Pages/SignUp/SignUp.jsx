@@ -1,26 +1,50 @@
 import { useContext } from 'react';
 import image from  '../../assets/others/authentication2.png'
 import { AuthContext } from '../Auth/Providers/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { updateProfile } from 'firebase/auth';
+import auth from '../Auth/firebase.config';
+
 
 const SignUp = () => {
 
 const {createUser} = useContext(AuthContext)
-
+const navigate = useNavigate()
     const handleSignUp = e => {
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
+        const photo = form.photo.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(name, email, password);
+        console.log( email, password);
         createUser(email, password)
         .then(result => {
-          console.log(result.user)
-          alert("user sign up successfully")
+          const user = result.user;
+          console.log('user information', user)
+          updateProfile(auth.currentUser, {
+            displayName:name, photoURL: photo
+          })
+          .then(()=> console.log(''))
+          .catch(error => console.log(error))
+          Swal.fire({
+            title: "Sign Up!",
+            text: "User Sign Up Successfully.",
+            imageUrl: "https://www.inturact.com/hubfs/From-Sign-up-to-Success-6-User-Onboarding-Best-Practices.jpg",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "Custom image"
+          });
+          navigate('/')
         })
         .catch(error => {
           console.log(error)
+          Swal.fire({
+            title: "Email already used!",
+            text: "Try another email!",
+            icon: "question"
+          });
         })
       }
 
@@ -44,7 +68,7 @@ const {createUser} = useContext(AuthContext)
                            <input
                              type="text"
                              name='name'
-                             placeholder="email"
+                             placeholder="name"
                              className="input input-bordered"
                              required
                            />
@@ -69,6 +93,18 @@ const {createUser} = useContext(AuthContext)
                              type="password"
                              name='password'
                              placeholder="password"
+                             className="input input-bordered"
+                             required
+                           />
+                         </div>
+                         <div className="form-control">
+                           <label className="label">
+                             <span className="label-text">Photo URL</span>
+                           </label>
+                           <input
+                             type="text"
+                             name='photo'
+                             placeholder="photo url"
                              className="input input-bordered"
                              required
                            />
