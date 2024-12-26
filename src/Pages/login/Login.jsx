@@ -9,15 +9,14 @@ import { useContext } from "react";
 import { AuthContext } from "../Auth/Providers/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const [disabled, setDisable] = useState(true);
   const { loginUser } = useContext(AuthContext);
-  const location = useLocation()
+  const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
-  
 
   const userValidCaptcha = (e) => {
     const user_captcha_value = e.target.value;
@@ -25,10 +24,9 @@ const Login = () => {
       setDisable(false);
     } else {
       alert("Captcha Does Not Match");
-      setDisable(true)
+      setDisable(true);
     }
   };
-
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -45,11 +43,11 @@ const Login = () => {
         Swal.fire({
           title: "Login Successfully!",
           icon: "success",
-          draggable: true
+          draggable: true,
         });
         console.log(result.user);
         navigate(from, { replace: true });
-        form.reset()
+        form.reset();
       })
       .catch((error) => {
         console.log(error);
@@ -58,6 +56,9 @@ const Login = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Bistro Boss || Login</title>
+      </Helmet>
       <div
         style={{
           backgroundImage: `url('https://s3-alpha-sig.figma.com/img/4e38/4d11/b068cd862e966bd80016bce98e0c320c?Expires=1736121600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=bXpRUfjrajjUQuXvA5w7kYJ2CMeF15~XoIVVg5RKklfBRxdN~6HH-blvYhL~Pr~61OiE6bglA184SydzdZg98sjDoMvrw9-o2hnYURCWKMV~1EhfiJ-lMHrcR1o1UUe354DWADrXsBXB4xrzT2N~2lCJDw8Widq8UP~lDYSqN3PxW6hPf21~kImnGoUuAumi3-EPw3hvFp2GKV3NbhxxVzs3tTYI0A0C7Ag8785BM0B25eP9VGKniq-wHJ6IGVqI5PJj1710zznqnw45LtRXB1euOCfNzxfjGbda2QQzW~fA9XLbg6Ajqb7izOvhuU91NgiXfb0GGQ7s6ZVDb6s97Q__')`,
@@ -105,7 +106,7 @@ const Login = () => {
                   <LoadCanvasTemplate />
                 </label>
                 <input
-                 onBlur={userValidCaptcha}
+                  onBlur={userValidCaptcha}
                   type="text"
                   name="captcha"
                   placeholder="type the captcha above"
@@ -121,7 +122,10 @@ const Login = () => {
               </div>
               <div className="mt-5">
                 <p className="text-yellow-600 text-center font-semibold">
-                  New in this website? <Link className="text-blue-500" to="/signUp">Go to Sign Up</Link>
+                  New in this website?{" "}
+                  <Link className="text-blue-500" to="/signUp">
+                    Go to Sign Up
+                  </Link>
                 </p>
               </div>
               <div className="form-control mt-6">

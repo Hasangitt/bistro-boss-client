@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../Auth/Providers/AuthContext";
 import auth from "../../Auth/firebase.config";
 import Swal from "sweetalert2";
+import { BsCartPlus } from "react-icons/bs";
+import useCart from "../../../hooks/useCart/useCart";
+
 
 const Navbar = () => {
   const { user, logOutUser } = useContext(AuthContext);
+  const [carts] = useCart();
 
   const handleLogOut = () => {
     Swal.fire({
@@ -44,6 +48,14 @@ const Navbar = () => {
       <li>
         <Link to="/contact">Contact Us</Link>
       </li>
+      <li>
+        <Link to="/dashboard">
+          <div className="flex items-center gap-2">
+          <BsCartPlus />
+            <div className="badge badge-secondary">+{carts.length}</div>
+          </div>
+        </Link>
+      </li>
     </>
   );
 
@@ -81,18 +93,27 @@ const Navbar = () => {
       </div>
       {user ? (
         <>
-         <div className="navbar-end flex items-center gap-4">
-         <div className="avatar">
-            <div className="ring-green-500 hover:ring-red-500 ring-offset-base-100 w-12 rounded-full ring ring-offset-2">
-              <img src={user.photoURL ? user.photoURL : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiHV8bVGK7AWg4G9gExTuR-CChkUU0G1abOg&s'}/>
+          <div className="navbar-end flex items-center gap-4">
+            <div className="avatar">
+              <div className="ring-green-500 hover:ring-red-500 ring-offset-base-100 w-12 rounded-full ring ring-offset-2">
+                <img
+                  src={
+                    user?.photoURL
+                      ? user?.photoURL
+                      : "https://img.freepik.com/premium-vector/education-design_24877-28980.jpg?ga=GA1.1.620070631.1731423142&semt=ais_hybrid"
+                  }
+                />
+              </div>
+            </div>
+            <div>
+              <button
+                onClick={handleLogOut}
+                className="btn btn-outline text-white"
+              >
+                Logout
+              </button>
             </div>
           </div>
-          <div>
-            <button onClick={handleLogOut} className="btn btn-outline text-white">
-              Logout
-            </button>
-          </div>
-         </div>
         </>
       ) : (
         <div className="navbar-end">

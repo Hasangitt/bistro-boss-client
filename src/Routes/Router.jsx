@@ -7,6 +7,9 @@ import Contact from "../Pages/Contact/Contact";
 import Login from "../Pages/login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../Layout/Dashboard/Dashboard";
+import UserHome from "../Pages/Dashboard/UserHome/UserHome";
+import Cart from "../Pages/Dashboard/Cart/Cart";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -22,7 +25,7 @@ export const router = createBrowserRouter([
         },
         {
           path: '/order/:category',
-          element: <PrivateRoute><OrderFood></OrderFood></PrivateRoute>
+          element: <OrderFood></OrderFood>
         },
         {
           path: '/contact',
@@ -38,4 +41,18 @@ export const router = createBrowserRouter([
         }
     ]
   },
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: '/dashboard',
+        element: <UserHome></UserHome>
+      },
+      {
+        path: '/dashboard/cart',
+        element: <Cart></Cart>
+      }
+    ]
+  }
 ]);
