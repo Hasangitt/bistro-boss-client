@@ -6,8 +6,12 @@ import Swal from "sweetalert2";
 import { updateProfile } from "firebase/auth";
 import auth from "../Auth/firebase.config";
 import { Helmet } from "react-helmet-async";
+import useAxiosPublic from "../../hooks/useAxiosPublic/useAxiosPublic";
+import GoogleSignUp from "../Shared/GoogleSignUp/GoogleSignUp";
+import GitHubSignIn from "../Shared/GitHubAuth/GitHubSignIn";
 
 const SignUp = () => {
+  const axiosPublic = useAxiosPublic();
   const { createUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleSignUp = (e) => {
@@ -26,18 +30,27 @@ const SignUp = () => {
           displayName: name,
           photoURL: photo,
         })
-          .then(() => console.log(""))
+          .then(() => {
+            const userInfo = {
+              name: user.displayName,
+              email: user.email,
+            };
+            axiosPublic.post("/users", userInfo).then((res) => {
+              if (res.data.insertedId) {
+                Swal.fire({
+                  title: "Sign Up!",
+                  text: "User Sign Up Successfully.",
+                  imageUrl:
+                    "https://www.inturact.com/hubfs/From-Sign-up-to-Success-6-User-Onboarding-Best-Practices.jpg",
+                  imageWidth: 400,
+                  imageHeight: 200,
+                  imageAlt: "Custom image",
+                });
+                navigate("/");
+              }
+            });
+          })
           .catch((error) => console.log(error));
-        Swal.fire({
-          title: "Sign Up!",
-          text: "User Sign Up Successfully.",
-          imageUrl:
-            "https://www.inturact.com/hubfs/From-Sign-up-to-Success-6-User-Onboarding-Best-Practices.jpg",
-          imageWidth: 400,
-          imageHeight: 200,
-          imageAlt: "Custom image",
-        });
-        navigate("/");
       })
       .catch((error) => {
         console.log(error);
@@ -112,7 +125,6 @@ const SignUp = () => {
                   name="photo"
                   placeholder="enter your photo url"
                   className="input input-bordered"
-                 
                 />
               </div>
               <div className="mt-5">
@@ -130,6 +142,9 @@ const SignUp = () => {
                   className="btn text-white bg-yellow-700"
                 />
               </div>
+              <div className="divider lg:divider-horizontal"></div>
+              <GoogleSignUp></GoogleSignUp>
+              <GitHubSignIn></GitHubSignIn>
             </form>
           </div>
         </div>

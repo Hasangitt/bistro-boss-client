@@ -7,10 +7,12 @@ import Contact from "../Pages/Contact/Contact";
 import Login from "../Pages/login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
-import Dashboard from "../Layout/Dashboard/Dashboard";
-import UserHome from "../Pages/Dashboard/UserHome/UserHome";
 import Cart from "../Pages/Dashboard/Cart/Cart";
+import DashHome from "../Pages/Dashboard/DashHome/DashHome";
+import AllUser from "../Pages/Dashboard/AllUsers/AllUser";
+
 export const router = createBrowserRouter([
+
   {
     path: "/",
     element: <Main></Main>,
@@ -43,15 +45,15 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute><DashHome></DashHome></PrivateRoute>,
     children: [
-      {
-        path: '/dashboard',
-        element: <UserHome></UserHome>
-      },
       {
         path: '/dashboard/cart',
         element: <Cart></Cart>
+      },
+      {
+        path: '/dashboard/allusers',
+        element: <AllUser></AllUser>
       }
     ]
   }

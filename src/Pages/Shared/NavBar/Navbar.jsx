@@ -29,7 +29,7 @@ const Navbar = () => {
           title: "Logout Successfully!",
           text: "User has been logout successfully.",
           icon: "success",
-        }).catch((error) => [console.log(error)]);
+        }).catch((error) => console.log(error));
       }
     });
   };

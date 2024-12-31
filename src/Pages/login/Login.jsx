@@ -10,6 +10,8 @@ import { AuthContext } from "../Auth/Providers/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import GoogleSignUp from "../Shared/GoogleSignUp/GoogleSignUp";
+import GitHubSignIn from "../Shared/GitHubAuth/GitHubSignIn";
 
 const Login = () => {
   const [disabled, setDisable] = useState(true);
@@ -136,6 +138,9 @@ const Login = () => {
                   className="btn text-white bg-yellow-700"
                 />
               </div>
+              <div className="divider lg:divider-horizontal"></div>
+              <GoogleSignUp></GoogleSignUp>
+              <GitHubSignIn></GitHubSignIn>
             </form>
           </div>
         </div>
