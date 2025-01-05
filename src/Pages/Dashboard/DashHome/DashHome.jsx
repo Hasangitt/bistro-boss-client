@@ -26,26 +26,26 @@ const DashHome = () => {
           {isAdmin ? (
             <>
               <a>
-                <Link className="flex items-center gap-2 hover:text-white">
+                <Link to='/dashboard/adminHome' className="flex items-center gap-2 hover:text-white">
                   {" "}
                   <FaHome /> Admin Home
                 </Link>
               </a>
               <a>
-                <Link className="flex items-center gap-2 hover:text-white">
+                <Link to='/dashboard/addItems' className="flex items-center gap-2 hover:text-white">
                   {" "}
                   <ImSpoonKnife /> Add Items
                 </Link>
               </a>
               <a>
-                <Link className="flex items-center gap-2 hover:text-white">
+                <Link to='/dashboard/manageItems' className="flex items-center gap-2 hover:text-white">
                   {" "}
                   <FaList /> Manage Items
                 </Link>
               </a>
               <a>
                 <Link
-                  to="/dashboard"
+                  to="/dashboard/manageBookings"
                   className="flex items-center gap-2 hover:text-white"
                 >
                   {" "}
@@ -63,7 +63,7 @@ const DashHome = () => {
             <>
               {" "}
               <a>
-                <Link to='/userhome' className="flex items-center gap-2 hover:text-white">
+                <Link to='/dashboard/userHome' className="flex items-center gap-2 hover:text-white">
                   {" "}
                   <FaHome /> User Home
                 </Link>
