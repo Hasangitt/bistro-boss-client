@@ -30,7 +30,7 @@ const useAxios = () => {
         const status = error.response.status;
         console.log('status erorr in interceptor', status)
 
-        if(status === 401 || status === 403){
+        if(status === 401 || status === 403 || status === 404){
             await logOutUser(auth);
             navigate('/login')
         }

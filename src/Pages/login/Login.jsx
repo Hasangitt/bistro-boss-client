@@ -52,7 +52,9 @@ const Login = () => {
         form.reset();
       })
       .catch((error) => {
-        console.log(error);
+        if(error){
+          Swal.fire("Check Your email or Sign Up");
+        }
       });
   };
 

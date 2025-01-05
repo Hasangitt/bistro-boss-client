@@ -63,7 +63,7 @@ const DashHome = () => {
             <>
               {" "}
               <a>
-                <Link className="flex items-center gap-2 hover:text-white">
+                <Link to='/userhome' className="flex items-center gap-2 hover:text-white">
                   {" "}
                   <FaHome /> User Home
                 </Link>
