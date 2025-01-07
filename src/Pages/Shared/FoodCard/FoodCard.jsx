@@ -60,7 +60,7 @@ const FoodCard = ({ item }) => {
     <div className="flex">
       <div className="card bg-base-100 w-80 mx-auto mb-5 md:mb-0 md:w-96 shadow-xl">
         <figure>
-          <img src={image} alt="" />
+          <img className="w-[300px] h-[280px] mx-auto rounded-b-md" src={image} alt="" />
         </figure>
         <div className="text-center space-y-4 my-3 flex flex-col flex-1 p-4">
           <div className="flex-grow">

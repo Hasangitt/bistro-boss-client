@@ -1,9 +1,49 @@
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 import { useForm } from "react-hook-form";
+import useAxiosPublic from "../../../hooks/useAxiosPublic/useAxiosPublic";
+import useAxios from "../../../hooks/useAxios/useAxios";
+import Swal from "sweetalert2";
+
+const image_hosting_key = import.meta.env.VITE_imgbb;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddItems = () => {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const { register, handleSubmit, reset } = useForm();
+  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxios();
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    // image upload to the imgbb and then get a url
+    const imageFile = { image: data.image[0] };
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: { "content-type": "multipart/form-data" },
+    });
+    if (res.data.success) {
+      // now send the item to the server
+      const menuItem = {
+        name: data.name,
+        category: data.category,
+        recipe: data.recipe,
+        price: parseFloat(data.price),
+        image: res.data.data.display_url,
+      };
+      const menuRes = await axiosSecure.post("/menu", menuItem);
+      console.log(menuRes.data);
+      if (menuRes.data.insertedId) {
+        reset();
+        // show pop up
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `${data.name} add to database successfully`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    }
+    console.log(res.data);
+  };
   return (
     <div>
       <SectionTitle
@@ -55,9 +95,9 @@ const AddItems = () => {
             </div>
           </div>
           <div className="form-control w-full">
-          <label className="label">
-                <span className="label-text">Recipe Details*</span>
-              </label>
+            <label className="label">
+              <span className="label-text">Recipe Details*</span>
+            </label>
             <textarea
               {...register("recipe")}
               placeholder="type here"
@@ -66,6 +106,7 @@ const AddItems = () => {
           </div>
           <div className="form-control w-full">
             <input
+              {...register("image")}
               type="file"
               className="file-input file-input-bordered w-full"
             />

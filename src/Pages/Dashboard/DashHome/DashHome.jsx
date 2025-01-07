@@ -20,7 +20,7 @@ const DashHome = () => {
 
   return (
     <div className="flex">
-      <div className="w-1/4 bg-yellow-600 pl-5 pt-28 h-screen">
+      <div className="w-1/4 bg-yellow-600 pl-5 pt-28 h-auto">
         <h1 className="text-xl font-semibold">BISTRO BOSS</h1>
         <div className="mt-5 md:flex md:flex-col  space-y-4 pb-5 md:pb-0">
           {isAdmin ? (
