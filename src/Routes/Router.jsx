@@ -15,6 +15,8 @@ import Error from "../Pages/Error/Error";
 import AddItems from "../Pages/Dashboard/AddItems/AddItems";
 import ManageItem from "../Pages/Dashboard/ManageItems/ManageItem";
 import UpdatedItem from "../Pages/Dashboard/updatedItem/UpdatedItem";
+import Payment from "../Pages/Dashboard/Payment/Payment";
+import PaymentHistroy from "../Pages/Dashboard/Payment History/PaymentHistroy";
 
 export const router = createBrowserRouter([
 
@@ -54,10 +56,21 @@ export const router = createBrowserRouter([
     element: <PrivateRoute><DashHome></DashHome></PrivateRoute>,
     errorElement: <Error></Error>,
     children: [
+      // normal user route
       {
         path: '/dashboard/cart',
         element: <Cart></Cart>
       },
+      {
+        path: '/dashboard/payment',
+        element: <Payment></Payment>
+      },
+      {
+        path: '/dashboard/payment-history',
+        element: <PaymentHistroy></PaymentHistroy>
+      },
+
+      // admin route
       {
         path: '/dashboard/allusers',
         element: <AdminRoute><AllUser></AllUser></AdminRoute>

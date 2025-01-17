@@ -76,7 +76,7 @@ const DashHome = () => {
                 </Link>
               </a>
               <a>
-                <Link className="flex items-center gap-2 hover:text-white">
+                <Link to='/dashboard/payment-history' className="flex items-center gap-2 hover:text-white">
                   {" "}
                   <FaWallet /> Payment history
                 </Link>
