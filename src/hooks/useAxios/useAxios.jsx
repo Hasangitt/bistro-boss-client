@@ -7,6 +7,7 @@ import auth from "../../Pages/Auth/firebase.config";
 
 const axiosSecure = axios.create({
     baseURL: 'http://localhost:5000'
+
 })
 
 const useAxios = () => {
@@ -28,7 +29,7 @@ const useAxios = () => {
         return response
       }, async (error) => {
         const status = error.response.status;
-        console.log('status erorr in interceptor', status)
+        // console.log('status erorr in interceptor', status)
 
         if(status === 401 || status === 403 || status === 404){
             await logOutUser(auth);

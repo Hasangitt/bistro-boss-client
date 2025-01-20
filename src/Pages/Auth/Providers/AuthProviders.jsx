@@ -16,7 +16,7 @@ const AuthProviders = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
-  const axiosPublic = useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -41,19 +41,18 @@ const AuthProviders = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      if(currentUser){
-      const userInformation = {email: currentUser.email}
-      axiosPublic.post('/jwt', userInformation)
-      .then(res => {
-        if(res.data.token){
-          localStorage.setItem('access-token', res.data.token)
-        }
-      })
+      if (currentUser) {
+        const userInformation = { email: currentUser.email };
+        axiosPublic.post("/jwt", userInformation).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+            setLoading(false);
+          }
+        });
+      } else {
+        localStorage.removeItem("access-token");
+        setLoading(false);
       }
-      else{
-        localStorage.removeItem('access-token')
-      }
-      setLoading(false);
     });
     return () => {
       return unSubscribe();

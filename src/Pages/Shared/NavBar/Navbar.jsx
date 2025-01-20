@@ -5,10 +5,11 @@ import auth from "../../Auth/firebase.config";
 import Swal from "sweetalert2";
 import { BsCartPlus } from "react-icons/bs";
 import useCart from "../../../hooks/useCart/useCart";
-
+import useAdmin from "../../../hooks/useAdmin/useAdmin";
 
 const Navbar = () => {
   const { user, logOutUser } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   const [carts] = useCart();
 
   const handleLogOut = () => {
@@ -47,11 +48,21 @@ const Navbar = () => {
       </li>
       <li>
         <Link to="/contact">Contact Us</Link>
-      </li>
+      </li>{" "}
+      {user && isAdmin && (
+        <li>
+          <Link to="/dashboard/adminHome">Dashboard</Link>
+        </li>
+      )}
+      {user && !isAdmin && (
+        <li>
+          <Link to="/dashboard/userHome">Dashboard</Link>
+        </li>
+      )}
       <li>
-        <Link to="/dashboard">
+        <Link to="/dashboard/cart">
           <div className="flex items-center gap-2">
-          <BsCartPlus />
+            <BsCartPlus />
             <div className="badge badge-secondary">+{carts.length}</div>
           </div>
         </Link>
